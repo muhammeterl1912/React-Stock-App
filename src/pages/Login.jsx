@@ -10,9 +10,11 @@ import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import { Formik, Form } from "formik";
 import { object, string } from "yup";
-import { login } from "../services/apiRequests";
+import useApiRequests from "../services/useApiRequests";
 
 const Login = () => {
+
+  const {login}= useApiRequests()
   const loginSchema = object({
     email: string()
       .email("Enter a valid Email")
