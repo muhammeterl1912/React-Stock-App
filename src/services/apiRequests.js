@@ -1,11 +1,18 @@
 import axios from "axios";
+import { toastSuccessNotify, toastErrorNotify } from "../helper/ToastNotify";
+import { fetchStart } from "../features/authSlice";
+import { useDispatch } from "react-redux";
 
 export const login = async (userLoginData) => {
-  const BASE_URL = "https://11135.fullstack.clarusway.com";
-try {
-    const data = await axios.post(`${BASE_URL}/auth/login`, userLoginData)
-    console.log(data)
-} catch (error) {
-    console.log(error)
-}
+  const dispatch = useDispatch();
+  dispatch(fetchStart());
+  try {
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/auth/login`,
+      userLoginData
+    );
+    toastSuccessNotify("Successfully Logged-In");
+  } catch (error) {
+    toastErrorNotify(error.message);
+  }
 };
