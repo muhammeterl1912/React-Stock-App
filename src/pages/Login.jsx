@@ -10,20 +10,27 @@ import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import { Formik, Form } from "formik";
 import { object, string } from "yup";
+import { login } from "../services/apiRequests";
 
 const Login = () => {
   const loginSchema = object({
     email: string()
-      .required("Email is a required field")
-      .email("Please enter a valid email address"),
+      .email("Enter a valid Email")
+      .required("Email is a required field"),
     password: string()
       .required("Password is a required field")
-      .min(7, "Password must be at least 7 characters long")
+      .min(8, "Password must be at least 8 characters long")
+      .max(16, "Password must be the most 16 characters long")
+      .matches(/\d+/, "Password must contain at least one number.")
+      .matches(/[a-z]+/, "Password must contain at least one lowercase letter.")
+      .matches(/[A-Z]+/, "Password must contain at least one uppercase letter.")
       .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\s]+$/,
-        "Password must contain at least one lowercase letter, one uppercase letter, and one number"
+        /[@$!%*?&]+/,
+        "The password must contain at least one special character (@$!%?&)."
       ),
-  });
+  })
+
+
 
   return (
     <Container maxWidth="lg">
@@ -66,6 +73,7 @@ const Login = () => {
             initialValues={{ email: "", password: "" }}
             validationSchema={loginSchema}
             onSubmit={(values, actions) => {
+              login(values)
               actions.resetForm();
               actions.setSubmitting(false);
             }}
