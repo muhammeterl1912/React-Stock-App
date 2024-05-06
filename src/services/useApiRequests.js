@@ -1,6 +1,6 @@
 import axios from "axios";
 import { toastSuccessNotify, toastErrorNotify } from "../helper/ToastNotify";
-import { fetchStart, loginSuccess, fetchFail } from "../features/authSlice";
+import { fetchStart, loginSuccess, fetchFail, registerSuccess } from "../features/authSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 const useApiRequests = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate()
-  
+
   const login = async (userLoginData) => {
 
     dispatch(fetchStart());
@@ -26,7 +26,28 @@ const useApiRequests = () => {
       toastErrorNotify(error.message);
     }
   };
-  return {login}
+  
+  const register = async (registerUser) => {
+    try {
+      
+    const {data} = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/users`,registerUser
+    )
+console.log(data)
+navigate("/stock")
+dispatch(registerSuccess(data))
+    toastSuccessNotify("Successfully Registered");
+ 
+    
+    } catch (error) {
+   console.log("fıs")
+    }
+    
+    
+      }
+
+  
+  return {login, register }
 }
 
 export default useApiRequests
