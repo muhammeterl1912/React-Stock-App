@@ -7,13 +7,13 @@ import {
   registerSuccess,
   logOutSession,
 } from "../features/authSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const useApiRequests = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const { token } = useSelector((state) => state.auth);
   const login = async (userLoginData) => {
     dispatch(fetchStart());
     try {
@@ -40,17 +40,21 @@ const useApiRequests = () => {
       toastSuccessNotify("Successfully Registered");
       navigate("/stock");
     } catch (error) {
+      dispatch(fetchFail());
       toastErrorNotify(error.message);
     }
   };
 
   const logOut = async () => {
     try {
-      const data = await axios(`${process.env.REACT_APP_BASE_URL}/auth/logout`);
-      dispatch( logOutSession())
+      await axios(`${process.env.REACT_APP_BASE_URL}/auth/logout`, {
+        headers: { Authorization: `Token ${token}` },
+      });
+      dispatch(logOutSession());
       toastSuccessNotify("User Successfully Logged-out.");
       navigate("/");
     } catch (error) {
+      dispatch(fetchFail());
       toastErrorNotify(error.message);
     }
   };
