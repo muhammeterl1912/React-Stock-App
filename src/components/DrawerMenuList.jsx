@@ -55,6 +55,12 @@ const DrawerMenuList = () => {
             key={index}
             disablePadding
             onClick={() => navigate(icon.path)}
+            sx={{
+    "& .MuiSvgIcon-root": { color: "white" },
+    "&:hover .MuiSvgIcon-root,&:hover": { color: "red" },
+    transition: "color 0.4s ease"
+  }}
+
           >
             <ListItemButton>
               <ListItemIcon>{icon.iconName}</ListItemIcon>
