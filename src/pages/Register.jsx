@@ -14,7 +14,7 @@ import useApiRequests from "../services/useApiRequests";
 
 const Register = () => {
   const navigate = useNavigate();
-  const {register}= useApiRequests()
+  const { register } = useApiRequests();
 
   const registerSchema = object({
     username: string().required("Username is required field."),
@@ -81,12 +81,10 @@ const Register = () => {
               email: "",
               firstName: "",
               lastName: "",
-             
-             
             }}
             validationSchema={registerSchema}
             onSubmit={(values, actions) => {
-              register(values)
+              register(values);
               actions.resetForm();
               actions.setSubmitting(false);
             }}
@@ -161,7 +159,12 @@ const Register = () => {
                     error={touched.password && Boolean(errors.password)}
                     helperText={touched.password && errors.password}
                   />
-                  <Button type="submit" variant="contained" size="large"   disabled={isSubmitting}>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    size="large"
+                    disabled={isSubmitting}
+                  >
                     Submit
                   </Button>
                 </Box>
