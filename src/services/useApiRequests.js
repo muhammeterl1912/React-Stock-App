@@ -20,6 +20,7 @@ const useApiRequests = () => {
     dispatch(fetchStart());
     try {
       const { data } = await axiosPublic.post("/auth/login/", userLoginData);
+
       dispatch(loginSuccess(data));
       toastSuccessNotify("Successfully Logged-In");
       navigate("/stock");

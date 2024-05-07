@@ -1,14 +1,21 @@
+import { lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from "../pages/Login";
-import Register from "../pages/Register";
+
+
 import PrivateRouter from "./PrivateRouter";
-import Dashboard from "../pages/Dashboard";
-import Home from "../pages/Home";
-import Sales from "../pages/Sales";
-import Firms from "../pages/Firms";
-import Brands from "../pages/Brands";
-import Products from "../pages/Products";
-import Purchases from "../pages/Purchases";
+const Login = lazy(() => import('../pages/Login'));
+const  Register  = lazy(() => import('../pages/Register'));
+const Dashboard = lazy(() => import('../pages/Dashboard'));
+const Home= lazy(() => import('../pages/Home'));
+const Sales  = lazy(() => import('../pages/Sales'));
+const Firms = lazy(() => import('../pages/Firms'));
+const Brands = lazy(() => import('../pages/Brands'));
+const Products = lazy(() => import('../pages/Products'));
+const Purchases  = lazy(() => import('../pages/Purchases'));
+
+
+
+
 const AppRouter = () => {
   return (
     <Router>

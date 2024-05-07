@@ -4,7 +4,9 @@ import { grey, blueGrey } from "@mui/material/colors";
 import { Provider } from "react-redux";
 import store from "./app/store";
 import { ToastContainer } from "react-toastify";
-
+import { Suspense } from "react";
+import Box from '@mui/material/Box';
+import Loading from "./assets/loading.gif"
 function App() {
   const theme = createTheme({
     palette: {
@@ -15,12 +17,25 @@ function App() {
         main: blueGrey["900"],
       },
     },
-  });
+  })
+  const imageLoading = (
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      height="100vh"
+    >
+      <img src={Loading} alt="Loading..." style={{ maxWidth: '100%', maxHeight: '100%' }} />
+    </Box>
+  );
+
   return (
     <>
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-          <AppRouter />
+         <Suspense fallback={imageLoading}> 
+         <AppRouter />
+         </Suspense>
         </Provider>
         <ToastContainer />
       </ThemeProvider>
