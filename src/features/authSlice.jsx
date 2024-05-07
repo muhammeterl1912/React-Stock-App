@@ -24,7 +24,7 @@ const authSlice = createSlice({
       state.user = payload.data.username;
       state.token = payload.token;
     },
-    logOutSession: (state) => {
+    logOutSession: () => {
    
       return {
         ...initialState,
