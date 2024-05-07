@@ -9,7 +9,11 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import StoreIcon from "@mui/icons-material/Store";
 import StarsIcon from "@mui/icons-material/Stars";
 import InventoryIcon from "@mui/icons-material/Inventory";
+import { useNavigate } from "react-router-dom";
+
 const DrawerMenuList = () => {
+  const navigate = useNavigate();
+
   const icons = [
     {
       iconName: <GridViewIcon />,
@@ -47,7 +51,11 @@ const DrawerMenuList = () => {
     <div>
       <List>
         {icons?.map((icon, index) => (
-          <ListItem disablePadding>
+          <ListItem
+            key={index}
+            disablePadding
+            onClick={() => navigate(icon.path)}
+          >
             <ListItemButton>
               <ListItemIcon>{icon.iconName}</ListItemIcon>
               <ListItemText primary={icon.title} />
