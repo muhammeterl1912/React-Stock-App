@@ -14,6 +14,7 @@ const firmsSlice = createSlice({
     state.loading = true;
   },
     listAll: (state, action) => {
+      console.log(state)
       state.firms = (action.payload);
   
     },

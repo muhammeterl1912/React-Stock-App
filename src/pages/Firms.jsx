@@ -1,10 +1,10 @@
 import { useEffect } from "react";
-import useStockRequest from "../services/useStockRequest";
+import useFirmsRequest from "../services/useFirmsRequest ";
 import NewFirmModal from "../components/NewFirmModal";
 import FirmsAll from "../components/FirmsAll";
 import { Box } from '@mui/material';
 const Firms = () => {
-  const { getFirms } = useStockRequest();
+  const { getFirms } = useFirmsRequest();
 
   useEffect(() => {
     getFirms();

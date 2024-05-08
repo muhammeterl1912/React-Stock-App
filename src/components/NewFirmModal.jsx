@@ -5,11 +5,12 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import Box from "@mui/material/Box";
 import { Formik, Form } from "formik";
-import useApiRequests from "../services/useApiRequests";
+import useFirmsRequests from "../services/useFirmsRequest ";
 
 export default function NewFirmModal() {
   const [open, setOpen] = React.useState(false);
 
+  const { createFirm } = useFirmsRequests();
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -17,7 +18,7 @@ export default function NewFirmModal() {
   const handleClose = () => {
     setOpen(false);
   };
-  const { createFirm } = useApiRequests();
+
   return (
     <React.Fragment>
       <Button
@@ -43,7 +44,7 @@ export default function NewFirmModal() {
             onSubmit={(values, actions) => {
               createFirm(values);
               actions.resetForm();
-              handleClose()
+              handleClose();
               actions.setSubmitting(false);
             }}
           >
