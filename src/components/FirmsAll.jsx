@@ -3,7 +3,6 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -13,7 +12,7 @@ import { useSelector } from "react-redux"
 export default function FirmsAll() {
     const data = useSelector((item)=>item.firms.firms)
 
-console.log(data)
+
     return (
 <Box sx={{display:"flex",flexWrap:"wrap",gap:"1.5rem"}}>
 {

@@ -5,8 +5,8 @@ import { Provider } from "react-redux";
 import store from "./app/store";
 import { ToastContainer } from "react-toastify";
 import { Suspense } from "react";
-import Box from '@mui/material/Box';
-import Loading from "./assets/loading.gif"
+import Box from "@mui/material/Box";
+import Loading from "./assets/loading.gif";
 function App() {
   const theme = createTheme({
     palette: {
@@ -17,7 +17,7 @@ function App() {
         main: blueGrey["900"],
       },
     },
-  })
+  });
   const imageLoading = (
     <Box
       display="flex"
@@ -25,7 +25,11 @@ function App() {
       alignItems="center"
       height="100vh"
     >
-      <img src={Loading} alt="Loading..." style={{ maxWidth: '100%', maxHeight: '100%' }} />
+      <img
+        src={Loading}
+        alt="Loading..."
+        style={{ maxWidth: "100%", maxHeight: "100%" }}
+      />
     </Box>
   );
 
@@ -33,9 +37,9 @@ function App() {
     <>
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-         <Suspense fallback={imageLoading}> 
-         <AppRouter />
-         </Suspense>
+          <Suspense fallback={imageLoading}>
+            <AppRouter />
+          </Suspense>
         </Provider>
         <ToastContainer />
       </ThemeProvider>

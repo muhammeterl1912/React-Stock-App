@@ -1,23 +1,25 @@
-import { useEffect } from "react"
-import useStockRequest from "../services/useStockRequest"
-
-import FirmsAll from "../components/FirmsAll"
-
+import { useEffect } from "react";
+import useStockRequest from "../services/useStockRequest";
+import NewFirmModal from "../components/NewFirmModal";
+import FirmsAll from "../components/FirmsAll";
+import { Box } from '@mui/material';
 const Firms = () => {
-  const { getFirms } = useStockRequest()
-
-
-
+  const { getFirms } = useStockRequest();
 
   useEffect(() => {
-    
-    getFirms()
-  }, [])
+    getFirms();
+  }, []);
 
-  return <div>
+  return (
+    <div>
+     <Box marginBottom="10px">
+      <NewFirmModal/>
+    </Box>
 
-    <FirmsAll/>
-  </div>
-}
+  
+      <FirmsAll />
+    </div>
+  );
+};
 
-export default Firms
+export default Firms;

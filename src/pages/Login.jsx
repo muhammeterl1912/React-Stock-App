@@ -13,8 +13,7 @@ import { object, string } from "yup";
 import useApiRequests from "../services/useApiRequests";
 
 const Login = () => {
-
-  const {login}= useApiRequests()
+  const { login } = useApiRequests();
 
   const loginSchema = object({
     email: string()
@@ -31,9 +30,7 @@ const Login = () => {
         /[@$!%*?&]+/,
         "The password must contain at least one special character (@$!%?&)."
       ),
-  })
-
-
+  });
 
   return (
     <Container maxWidth="lg">
@@ -76,7 +73,7 @@ const Login = () => {
             initialValues={{ email: "", password: "" }}
             validationSchema={loginSchema}
             onSubmit={(values, actions) => {
-              login(values)
+              login(values);
               actions.resetForm();
               actions.setSubmitting(false);
             }}

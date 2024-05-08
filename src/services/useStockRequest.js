@@ -1,30 +1,23 @@
-import { useDispatch } from "react-redux"
-import useAxiosInstance from "./useAxiosInstance"
-import { listAll } from "../features/firmsSlice"
-
+import { useDispatch, useSelector } from "react-redux";
+import useAxiosInstance from "./useAxiosInstance";
+import { listAll } from "../features/firmsSlice";
+import { FirmsfetchStart, FirmsFetchFail } from "../features/firmsSlice";
 
 const useStockRequest = () => {
-  const { axiosToken,loading } = useAxiosInstance()
-  const dispatch = useDispatch()
-
-
+  const { axiosToken } = useAxiosInstance();
+  const dispatch = useDispatch();
 
   const getFirms = async () => {
- 
+    dispatch(FirmsfetchStart());
     try {
-      const { data } = 
-      
-      await axiosToken("/firms")
-      console.log(`data ${data}`)
-   dispatch(listAll(data.data))
-     
+      const { data } = await axiosToken("/firms");
+      dispatch(listAll(data.data));
     } catch (error) {
-     
-     
+      dispatch(FirmsFetchFail());
     }
-  }
+  };
 
-  return { getFirms }
-}
+  return { getFirms };
+};
 
-export default useStockRequest
+export default useStockRequest;
