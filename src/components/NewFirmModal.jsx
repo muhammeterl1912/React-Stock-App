@@ -36,28 +36,14 @@ export default function NewFirmModal() {
         ADD NEW FIRM
       </Button>
 
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        PaperProps={{
-          component: "form",
-          onSubmit: (event) => {
-            event.preventDefault();
-            const formData = new FormData(event.currentTarget);
-            const formJson = Object.fromEntries(formData.entries());
-            const email = formJson.email;
-            console.log(email);
-            handleClose();
-          },
-        }}
-      >
+      <Dialog open={open} onClose={handleClose}>
         <DialogContent>
           <Formik
-            initialValues={{ firm_name: "", phone: "", address: "", image: "" }}
+            initialValues={{ name: "", phone: "", address: "", image: "" }}
             onSubmit={(values, actions) => {
-              console.log(values)
               createFirm(values);
               actions.resetForm();
+              handleClose()
               actions.setSubmitting(false);
             }}
           >
@@ -78,11 +64,11 @@ export default function NewFirmModal() {
                 >
                   <TextField
                     label="Firm Name"
-                    name="firm_name"
-                    id="firm_name"
+                    name="name"
+                    id="name"
                     type="text"
                     variant="outlined"
-                    value={values.firm_name}
+                    value={values.name}
                     required
                     onChange={handleChange}
                   />

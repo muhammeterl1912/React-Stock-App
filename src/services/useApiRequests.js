@@ -9,14 +9,14 @@ import {
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import useAxiosInstance from "./useAxiosInstance";
-import useStockRequest from "./useStockRequest"
+import useStockRequest from "./useStockRequest";
 
 const useApiRequests = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { axiosToken, axiosPublic } = useAxiosInstance();
-const {getFirms } = useStockRequest()
+  const { getFirms } = useStockRequest();
   const login = async (userLoginData) => {
     dispatch(fetchStart());
     try {
@@ -53,22 +53,22 @@ const {getFirms } = useStockRequest()
       dispatch(fetchFail());
       toastErrorNotify(error.message);
     }
-  }
+  };
 
-  const createFirm = async (createNewFirm)=>{
+  const createFirm = async (createNewFirm) => {
     try {
       await axiosToken.post("/firms/", createNewFirm);
-      getFirms()
+      getFirms();
 
-      console.log("first")
+      console.log("first");
       toastSuccessNotify("Firm Succesfully created.");
     } catch (error) {
       dispatch(fetchFail());
       toastErrorNotify(error.message);
     }
-  }
+  };
 
-  return { login, register, logOut,createFirm };
+  return { login, register, logOut, createFirm };
 };
 
 export default useApiRequests;
