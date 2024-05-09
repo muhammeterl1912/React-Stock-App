@@ -3,17 +3,17 @@ import useAxiosInstance from "./useAxiosInstance";
 import { listAll } from "../features/firmsSlice";
 import { toastSuccessNotify, toastErrorNotify } from "../helper/ToastNotify";
 import { FirmsfetchStart, FirmsFetchFail } from "../features/firmsSlice";
-import { fetchFail } from "../features/authSlice";
+import { fetchFail, createFirmSuccess } from "../features/authSlice";
 const useFirmsRequest = () => {
   const { axiosToken } = useAxiosInstance();
   const dispatch = useDispatch();
 
   const createFirm = async (createNewFirm) => {
+    dispatch(FirmsfetchStart());
     try {
-      await axiosToken.post("/firms/", createNewFirm);
+     await axiosToken.post("/firms/", createNewFirm);
       getFirms();
 
-      console.log("first");
       toastSuccessNotify("Firm Succesfully created.");
     } catch (error) {
       dispatch(fetchFail());
@@ -40,8 +40,17 @@ const useFirmsRequest = () => {
       dispatch(FirmsFetchFail());
     }
   };
-
-  return { getFirms, createFirm, deleteFirms };
+  const updateFirm = async (id,editForms) => {
+    dispatch(FirmsfetchStart());
+    try {
+      await axiosToken.patch(`/firms/${id}`,editForms);
+      toastSuccessNotify("Firm Succesfully updated.");
+      getFirms();
+    } catch (error) {
+      dispatch(FirmsFetchFail());
+    }
+  };
+  return { getFirms, deleteFirms, updateFirm ,createFirm};
 };
 
 export default useFirmsRequest;

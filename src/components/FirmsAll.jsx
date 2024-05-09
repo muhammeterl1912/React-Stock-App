@@ -11,15 +11,28 @@ import IconButton from "@mui/material/IconButton";
 import { useSelector } from "react-redux";
 import useFirmsRequest from "../services/useFirmsRequest ";
 
-export default function FirmsAll() {
+export default function FirmsAll({ setOpen, setSelectedFirm }) {
   const data = useSelector((item) => item.firms.firms);
 
   const { deleteFirms } = useFirmsRequest();
 
+  const handleFirmClick = (selectedFirm) => {
+    setSelectedFirm(selectedFirm);
+  };
+
   return (
-    <Box sx={{ display: "flex", flexWrap: "wrap", gap: "1.5rem" }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexWrap: "wrap",
+        gap: "1.5rem",
+        justifyContent: "center",
+      }}
+    >
       {data?.map((firm) => (
         <Card
+          key={firm._id}
+          onClick={() => handleFirmClick(firm)}
           sx={{
             maxWidth: 345,
             display: "flex",
@@ -44,11 +57,26 @@ export default function FirmsAll() {
           />
           <CardContent></CardContent>
           <CardActions>
-            <IconButton size="small">
-              <EditIcon />
+            <IconButton
+              size="small"
+              onClick={() => {
+                setOpen((open) => !open);
+              }}
+            >
+              <EditIcon
+                sx={{
+                  "&:hover": { color: "red" },
+                  transition: "color 0.4s ease",
+                }}
+              />
             </IconButton>
-            <IconButton size="small" onClick={()=>deleteFirms(firm._id)}>
-              <DeleteIcon />
+            <IconButton size="small" onClick={() => deleteFirms(firm._id)}>
+              <DeleteIcon
+                sx={{
+                  "&:hover": { color: "red" },
+                  transition: "color 0.4s ease",
+                }}
+              />
             </IconButton>
           </CardActions>
         </Card>

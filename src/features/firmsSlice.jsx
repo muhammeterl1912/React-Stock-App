@@ -1,7 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  firms:[],
+  firms: [],
   loading: false,
   error: false,
 };
@@ -9,24 +9,35 @@ const initialState = {
 const firmsSlice = createSlice({
   name: "firms",
   initialState,
-  reducers: {  
-     FirmsfetchStart: (state) => {
-    state.loading = true;
-  },
+  reducers: {
+    FirmsfetchStart: (state) => {
+      state.loading = true;
+    },
     listAll: (state, action) => {
-      console.log(state)
-      state.firms = (action.payload);
-  
+      state.firms = action.payload;
+    },
+    deleteFirmSuccess: (state, { payload }) => {
+      state.loading = false;
+      state.firms = payload.data;
     },
 
     FirmsFetchFail: (state) => {
       state.loading = false;
       state.error = true;
-    }
-  }
+    },
+    createFirmSuccess: (state, { payload }) => {
+      state.loading = false;
+      state.firms.push(payload.data);
+    },
+  },
 });
 
-export const { listAll,FirmsfetchStart,FirmsFetchFail } = firmsSlice.actions;
+export const {
+  listAll,
+  FirmsfetchStart,
+  FirmsFetchFail,
+  deleteFirmSuccess,
+  createFirmSuccess,
+} = firmsSlice.actions;
 
 export default firmsSlice.reducer;
- 

@@ -75,7 +75,14 @@ function Dashboard(props) {
             EROL STOCK APP
           </Typography>
           {user && (
-            <Button color="inherit" onClick={() => logOut()}>
+            <Button
+              color="inherit"
+              onClick={() => logOut()}
+              sx={{
+                "&:hover": { color: "red" },
+                transition: "color 0.4s ease",
+              }}
+            >
               Logout
             </Button>
           )}
@@ -101,8 +108,8 @@ function Dashboard(props) {
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
-              backgroundColor:"secondary.main",
-              color:"white"
+              backgroundColor: "secondary.main",
+              color: "white",
             },
           }}
         >
@@ -115,8 +122,8 @@ function Dashboard(props) {
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
-              backgroundColor:"secondary.main",
-              color:"white"
+              backgroundColor: "secondary.main",
+              color: "white",
             },
           }}
           open

@@ -7,16 +7,21 @@ import Box from "@mui/material/Box";
 import { Formik, Form } from "formik";
 import useFirmsRequests from "../services/useFirmsRequest ";
 
-export default function NewFirmModal() {
-  const [open, setOpen] = React.useState(false);
+export default function NewFirmModal({
+  open,
+  setOpen,
+  selectedFirm,
+  setSelectedFirm,
+}) {
+  const { createFirm, updateFirm } = useFirmsRequests();
 
-  const { createFirm } = useFirmsRequests();
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
+    setSelectedFirm(null);
   };
 
   return (
@@ -40,79 +45,86 @@ export default function NewFirmModal() {
       <Dialog open={open} onClose={handleClose}>
         <DialogContent>
           <Formik
-            initialValues={{ name: "", phone: "", address: "", image: "" }}
+            initialValues={{
+              name: selectedFirm?.name || "",
+              phone: selectedFirm?.phone || "",
+              address: selectedFirm?.address || "",
+              image: selectedFirm?.image || "",
+            }}
             onSubmit={(values, actions) => {
-              createFirm(values);
+              if (selectedFirm && selectedFirm._id) {
+                updateFirm(selectedFirm._id, values);
+              } else {
+                console.log("wewewew");
+                createFirm(values);
+              }
               actions.resetForm();
               handleClose();
               actions.setSubmitting(false);
             }}
           >
-            {({
-              values,
-              handleChange,
-
-              isSubmitting,
-            }) => (
-              <Form>
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 3,
-                    padding: "25px",
-                  }}
-                >
-                  <TextField
-                    label="Firm Name"
-                    name="name"
-                    id="name"
-                    type="text"
-                    variant="outlined"
-                    value={values.name}
-                    required
-                    onChange={handleChange}
-                  />
-                  <TextField
-                    label="Phone"
-                    name="phone"
-                    id="phone"
-                    type="text"
-                    variant="outlined"
-                    value={values.phone}
-                    required
-                    onChange={handleChange}
-                  />
-                  <TextField
-                    label="Address"
-                    name="address"
-                    id="address"
-                    type="text"
-                    variant="outlined"
-                    required
-                    value={values.address}
-                    onChange={handleChange}
-                  />
-                  <TextField
-                    label="Image"
-                    name="image"
-                    id="image"
-                    type="url"
-                    variant="outlined"
-                    required
-                    value={values.image}
-                    onChange={handleChange}
-                  />
-                  <Button
-                    variant="contained"
-                    type="submit"
-                    disabled={isSubmitting}
+            {({ values, handleChange, isSubmitting }) => {
+              return (
+                <Form>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 3,
+                      padding: "25px",
+                    }}
                   >
-                    ADD FIRM
-                  </Button>
-                </Box>
-              </Form>
-            )}
+                    <TextField
+                      label="Firm Name"
+                      name="name"
+                      id="name"
+                      type="text"
+                      variant="outlined"
+                      value={values.name}
+                      required
+                      onChange={handleChange}
+                    />
+                    <TextField
+                      label="Phone"
+                      name="phone"
+                      id="phone"
+                      type="text"
+                      variant="outlined"
+                      value={values.phone}
+                      required
+                      onChange={handleChange}
+                    />
+                    <TextField
+                      label="Address"
+                      name="address"
+                      id="address"
+                      type="text"
+                      variant="outlined"
+                      required
+                      value={values.address}
+                      onChange={handleChange}
+                    />
+                    <TextField
+                      label="Image"
+                      name="image"
+                      id="image"
+                      type="url"
+                      variant="outlined"
+                      required
+                      value={values.image}
+                      onChange={handleChange}
+                    />
+                    <Button
+                      variant="contained"
+                      type="submit"
+                      disabled={isSubmitting}
+                    >
+                      ADD FIRM
+                    </Button>
+                  </Box>
+                </Form>
+              );
+            }}
           </Formik>
         </DialogContent>
       </Dialog>
