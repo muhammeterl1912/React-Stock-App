@@ -5,15 +5,9 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import Box from "@mui/material/Box";
 import { Formik, Form } from "formik";
-import useFirmsRequests from "../services/useFirmsRequest";
 
-export default function NewFirmModal({
-  open,
-  setOpen,
-  selectedFirm,
-  setSelectedFirm,
-}) {
-  const { createFirm, updateFirm } = useFirmsRequests();
+export default function NewBrandModal() {
+  const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -21,7 +15,6 @@ export default function NewFirmModal({
 
   const handleClose = () => {
     setOpen(false);
-    setSelectedFirm(null);
   };
 
   return (
@@ -39,25 +32,17 @@ export default function NewFirmModal({
           },
         }}
       >
-        ADD NEW FIRM
+        ADD NEW BRAND
       </Button>
 
       <Dialog open={open} onClose={handleClose}>
         <DialogContent>
           <Formik
             initialValues={{
-              name: selectedFirm?.name || "",
-              phone: selectedFirm?.phone || "",
-              address: selectedFirm?.address || "",
-              image: selectedFirm?.image || "",
+              name: "",
+              image: "",
             }}
             onSubmit={(values, actions) => {
-              if (selectedFirm && selectedFirm._id) {
-                updateFirm(selectedFirm._id, values);
-              } else {
-             
-                createFirm(values);
-              }
               actions.resetForm();
               handleClose();
               actions.setSubmitting(false);
@@ -75,7 +60,7 @@ export default function NewFirmModal({
                     }}
                   >
                     <TextField
-                      label="Firm Name"
+                      label="Brand Name"
                       name="name"
                       id="name"
                       type="text"
@@ -85,35 +70,16 @@ export default function NewFirmModal({
                       onChange={handleChange}
                     />
                     <TextField
-                      label="Phone"
-                      name="phone"
-                      id="phone"
-                      type="text"
-                      variant="outlined"
-                      value={values.phone}
-                      required
-                      onChange={handleChange}
-                    />
-                    <TextField
-                      label="Address"
-                      name="address"
-                      id="address"
-                      type="text"
-                      variant="outlined"
-                      required
-                      value={values.address}
-                      onChange={handleChange}
-                    />
-                    <TextField
-                      label="Image"
+                      label="Brand Image"
                       name="image"
                       id="image"
-                      type="url"
+                      type="text"
                       variant="outlined"
-                      required
                       value={values.image}
+                      required
                       onChange={handleChange}
                     />
+
                     <Button
                       variant="contained"
                       type="submit"

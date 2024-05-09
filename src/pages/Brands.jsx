@@ -1,8 +1,26 @@
-import React from 'react'
-
+import NewBrandModal from "../components/NewBrandModal"
+import { useEffect } from "react";
+import useBrandsRequest from "../services/useBrandsRequest";
+import BrandsAll from "../components/BrandsAll";
 const Brands = () => {
+
+
+
+const {getBrands} =useBrandsRequest()
+
+
+
+  useEffect(() => {
+    getBrands();
+  }, []);
+
+
+
   return (
-    <div>Brands</div>
+    <div>
+      <NewBrandModal/>
+      <BrandsAll/>
+    </div>
   )
 }
 

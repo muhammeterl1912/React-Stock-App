@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import useFirmsRequest from "../services/useFirmsRequest ";
+import useFirmsRequest from "../services/useFirmsRequest";
 import NewFirmModal from "../components/NewFirmModal";
 import FirmsAll from "../components/FirmsAll";
 import { Box } from "@mui/material";

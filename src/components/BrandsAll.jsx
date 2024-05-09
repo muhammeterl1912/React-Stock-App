@@ -1,7 +1,6 @@
 import * as React from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -11,10 +10,9 @@ import IconButton from "@mui/material/IconButton";
 import { useSelector } from "react-redux";
 import useFirmsRequest from "../services/useFirmsRequest";
 
-export default function FirmsAll({ setOpen, setSelectedFirm }) {
-  const data = useSelector((item) => item.firms.firms);
+export default function BrandsAll({ setOpen, setSelectedFirm }) {
+  const brandsData = useSelector((item) => item.brands.brands);
 
-  const { deleteFirms } = useFirmsRequest();
 
   const handleFirmClick = (selectedFirm) => {
     setSelectedFirm(selectedFirm);
@@ -27,12 +25,13 @@ export default function FirmsAll({ setOpen, setSelectedFirm }) {
         flexWrap: "wrap",
         gap: "1.5rem",
         justifyContent: "center",
+        marginTop:"7px"
       }}
     >
-      {data?.map((firm) => (
+      {brandsData?.map((firm) => (
         <Card
           key={firm._id}
-          onClick={() => handleFirmClick(firm)}
+         
           sx={{
             maxWidth: 345,
             display: "flex",
@@ -45,9 +44,7 @@ export default function FirmsAll({ setOpen, setSelectedFirm }) {
           <Typography gutterBottom variant="h5" component="div">
             {firm.name}
           </Typography>
-          <Typography variant="body2" color="text.secondary" pb={"5px"}>
-            {firm.address}
-          </Typography>
+        
           <CardMedia
             component="img"
             alt="green iguana"
@@ -55,7 +52,6 @@ export default function FirmsAll({ setOpen, setSelectedFirm }) {
             sx={{ objectFit: "contain", maxHeight: "140px", height: "140px" }}
             image={firm.image}
           />
-          <CardContent></CardContent>
           <CardActions>
             <IconButton
               size="small"
@@ -70,7 +66,7 @@ export default function FirmsAll({ setOpen, setSelectedFirm }) {
                 }}
               />
             </IconButton>
-            <IconButton size="small" onClick={() => deleteFirms(firm._id)}>
+            <IconButton size="small">
               <DeleteIcon
                 sx={{
                   "&:hover": { color: "red" },
