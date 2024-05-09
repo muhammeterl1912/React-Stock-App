@@ -10,7 +10,6 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import useAxiosInstance from "./useAxiosInstance";
 
-
 const useApiRequests = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -55,20 +54,7 @@ const useApiRequests = () => {
     }
   };
 
-  // const createFirm = async (createNewFirm) => {
-  //   try {
-  //     await axiosToken.post("/firms/", createNewFirm);
-  //     getFirms();
-
-  //     console.log("first");
-  //     toastSuccessNotify("Firm Succesfully created.");
-  //   } catch (error) {
-  //     dispatch(fetchFail());
-  //     toastErrorNotify(error.message);
-  //   }
-  // };
-
-  return { login, register, logOut};
+  return { login, register, logOut };
 };
 
 export default useApiRequests;

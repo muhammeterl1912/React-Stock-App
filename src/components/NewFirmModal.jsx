@@ -5,7 +5,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import Box from "@mui/material/Box";
 import { Formik, Form } from "formik";
-import useFirmsRequests from "../services/useFirmsRequest";
+import useStockRequest from "../services/useStockRequests";
 
 export default function NewFirmModal({
   open,
@@ -13,7 +13,7 @@ export default function NewFirmModal({
   selectedFirm,
   setSelectedFirm,
 }) {
-  const { createFirm, updateFirm } = useFirmsRequests();
+  const { createFirmsStock, updateFirmsStock } = useStockRequest();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -53,10 +53,9 @@ export default function NewFirmModal({
             }}
             onSubmit={(values, actions) => {
               if (selectedFirm && selectedFirm._id) {
-                updateFirm(selectedFirm._id, values);
+                updateFirmsStock(selectedFirm._id, values);
               } else {
-             
-                createFirm(values);
+                createFirmsStock(values);
               }
               actions.resetForm();
               handleClose();

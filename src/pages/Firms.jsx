@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import useFirmsRequest from "../services/useFirmsRequest";
+import useStockRequest from "../services/useStockRequests";
 import NewFirmModal from "../components/NewFirmModal";
 import FirmsAll from "../components/FirmsAll";
 import { Box } from "@mui/material";
 const Firms = () => {
-  const { getFirms } = useFirmsRequest();
+  const { getFirmsStock } = useStockRequest();
   const [open, setOpen] = useState(false);
   const [selectedFirm, setSelectedFirm] = useState(null);
   useEffect(() => {
-    getFirms();
+    getFirmsStock();
   }, []);
 
   return (

@@ -9,12 +9,12 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
 import { useSelector } from "react-redux";
-import useFirmsRequest from "../services/useFirmsRequest";
+import useStockRequest from "../services/useStockRequests";
 
 export default function FirmsAll({ setOpen, setSelectedFirm }) {
-  const data = useSelector((item) => item.firms.firms);
+  const firmsAlldata = useSelector((item) => item.stock.firms);
 
-  const { deleteFirms } = useFirmsRequest();
+  const { deleteFirmsStock } = useStockRequest();
 
   const handleFirmClick = (selectedFirm) => {
     setSelectedFirm(selectedFirm);
@@ -29,7 +29,7 @@ export default function FirmsAll({ setOpen, setSelectedFirm }) {
         justifyContent: "center",
       }}
     >
-      {data?.map((firm) => (
+      {firmsAlldata?.map((firm) => (
         <Card
           key={firm._id}
           onClick={() => handleFirmClick(firm)}
@@ -70,7 +70,7 @@ export default function FirmsAll({ setOpen, setSelectedFirm }) {
                 }}
               />
             </IconButton>
-            <IconButton size="small" onClick={() => deleteFirms(firm._id)}>
+            <IconButton size="small" onClick={() => deleteFirmsStock(firm._id)}>
               <DeleteIcon
                 sx={{
                   "&:hover": { color: "red" },

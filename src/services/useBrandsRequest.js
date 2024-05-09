@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from "react-redux";
 import useAxiosInstance from "./useAxiosInstance";
 import { listAll } from "../features/firmsSlice";
 import { toastSuccessNotify, toastErrorNotify } from "../helper/ToastNotify";
-import { FirmsfetchStart, FirmsFetchFail } from "../features/firmsSlice";
 import { fetchFail, createFirmSuccess } from "../features/authSlice";
 import { listAllBrands } from "../features/brandsSlice";
 const useBrandsRequest = () => {
@@ -28,9 +27,9 @@ const useBrandsRequest = () => {
     try {
       const { data } = await axiosToken("/brands/");
   
-      dispatch(listAllBrands(data.data));
+     
     } catch (error) {
-      dispatch(FirmsFetchFail());
+    
     }
   };
 //   const deleteFirms = async (firmId) => {
