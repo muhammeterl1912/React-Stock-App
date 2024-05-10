@@ -7,15 +7,16 @@ import Box from "@mui/material/Box";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
+import useStockRequest from "../services/useStockRequests";
 import { useSelector } from "react-redux";
-import useFirmsRequest from "../services/useFirmsRequest";
 
-export default function BrandsAll({ setOpen, setSelectedFirm }) {
-  const brandsData = useSelector((item) => item.brands.brands);
 
+export default function BrandsAll({ setOpen, setSelectedBrand}) {
+  const brandsData = useSelector((item) => item.stock.brands);
+  const { deleteFirmsStock } = useStockRequest();
 
   const handleFirmClick = (selectedFirm) => {
-    setSelectedFirm(selectedFirm);
+    setSelectedBrand(selectedFirm);
   };
 
   return (
@@ -28,10 +29,10 @@ export default function BrandsAll({ setOpen, setSelectedFirm }) {
         marginTop:"7px"
       }}
     >
-      {brandsData?.map((firm) => (
+      {brandsData?.map((brand) => (
         <Card
-          key={firm._id}
-         
+          key={brand._id}
+         onClick={() => handleFirmClick(brand)}
           sx={{
             maxWidth: 345,
             display: "flex",
@@ -42,7 +43,7 @@ export default function BrandsAll({ setOpen, setSelectedFirm }) {
           }}
         >
           <Typography gutterBottom variant="h5" component="div">
-            {firm.name}
+            {brand.name}
           </Typography>
         
           <CardMedia
@@ -50,7 +51,7 @@ export default function BrandsAll({ setOpen, setSelectedFirm }) {
             alt="green iguana"
             width="100%"
             sx={{ objectFit: "contain", maxHeight: "140px", height: "140px" }}
-            image={firm.image}
+            image={brand.image}
           />
           <CardActions>
             <IconButton
@@ -66,7 +67,7 @@ export default function BrandsAll({ setOpen, setSelectedFirm }) {
                 }}
               />
             </IconButton>
-            <IconButton size="small">
+            <IconButton size="small" onClick={() => deleteFirmsStock("brands",brand._id)}>
               <DeleteIcon
                 sx={{
                   "&:hover": { color: "red" },

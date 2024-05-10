@@ -20,8 +20,8 @@ export default function NewFirmModal({
   };
 
   const handleClose = () => {
-    setOpen(false);
     setSelectedFirm(null);
+    setOpen(false);
   };
 
   return (
@@ -53,9 +53,9 @@ export default function NewFirmModal({
             }}
             onSubmit={(values, actions) => {
               if (selectedFirm && selectedFirm._id) {
-                updateFirmsStock(selectedFirm._id, values);
+                updateFirmsStock("firms",selectedFirm._id, values);
               } else {
-                createFirmsStock(values);
+                createFirmsStock("firms",values);
               }
               actions.resetForm();
               handleClose();

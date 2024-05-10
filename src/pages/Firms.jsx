@@ -4,11 +4,11 @@ import NewFirmModal from "../components/NewFirmModal";
 import FirmsAll from "../components/FirmsAll";
 import { Box } from "@mui/material";
 const Firms = () => {
-  const { getFirmsStock } = useStockRequest();
+  const { getAllListStock} = useStockRequest();
   const [open, setOpen] = useState(false);
   const [selectedFirm, setSelectedFirm] = useState(null);
   useEffect(() => {
-    getFirmsStock();
+    getAllListStock("firms");
   }, []);
 
   return (

@@ -70,7 +70,7 @@ export default function FirmsAll({ setOpen, setSelectedFirm }) {
                 }}
               />
             </IconButton>
-            <IconButton size="small" onClick={() => deleteFirmsStock(firm._id)}>
+            <IconButton size="small" onClick={() => deleteFirmsStock("firms",firm._id)}>
               <DeleteIcon
                 sx={{
                   "&:hover": { color: "red" },

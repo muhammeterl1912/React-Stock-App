@@ -5,14 +5,15 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import Box from "@mui/material/Box";
 import { Formik, Form } from "formik";
-
-export default function NewBrandModal() {
-  const [open, setOpen] = React.useState(false);
-
+import useStockRequest from "../services/useStockRequests";
+export default function NewBrandModal({ open, setOpen,  selectedBrand,
+    setSelectedBrand, }) {
   const handleClickOpen = () => {
+    setSelectedBrand(null)
     setOpen(true);
+    
   };
-
+  const { createFirmsStock, updateFirmsStock } = useStockRequest();
   const handleClose = () => {
     setOpen(false);
   };
@@ -39,10 +40,15 @@ export default function NewBrandModal() {
         <DialogContent>
           <Formik
             initialValues={{
-              name: "",
-              image: "",
+              name: selectedBrand?.name || "",
+              image:selectedBrand?.image || "",
             }}
             onSubmit={(values, actions) => {
+              if (selectedBrand && selectedBrand._id) {
+                updateFirmsStock("brands",selectedBrand._id, values);
+              } else {
+                createFirmsStock("brands",values);
+              }
               actions.resetForm();
               handleClose();
               actions.setSubmitting(false);

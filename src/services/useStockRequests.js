@@ -4,7 +4,6 @@ import { toastSuccessNotify, toastErrorNotify } from "../helper/ToastNotify";
 import {
   fetchFail,
   fetchStart,
-  getBrandSuccess,
   getStockSuccess,
 } from "../features/stockSlice";
 
@@ -12,7 +11,7 @@ const useStockRequest = () => {
   const { axiosToken } = useAxiosInstance();
   const dispatch = useDispatch();
 
-  const getFirmsStock = async (path = "firms") => {
+  const getAllListStock = async (path) => {
     dispatch(fetchStart());
     try {
       const { data } = await axiosToken(`/${path}`);
@@ -24,33 +23,33 @@ const useStockRequest = () => {
     }
   };
 
-  const deleteFirmsStock = async (path = "firms", id) => {
+  const deleteFirmsStock = async (path , id) => {
     dispatch(fetchStart());
     try {
       await axiosToken.delete(`/${path}/${id}`);
       toastSuccessNotify("Firm Succesfully deleted.");
-      getFirmsStock(path);
+      getAllListStock(path);
     } catch (error) {
       dispatch(fetchFail());
       toastErrorNotify(error.message);
     }
   };
-  const createFirmsStock = async (path = "firms", createNewFirm) => {
+  const createFirmsStock = async (path, createNewStock) => {
     dispatch(fetchStart());
     try {
-      await axiosToken.post(`/${path}`, createNewFirm);
-      getFirmsStock(path);
+      await axiosToken.post(`/${path}`, createNewStock);
+      getAllListStock(path);
       toastSuccessNotify("Firm Succesfully created.");
     } catch (error) {
       dispatch(fetchFail());
       toastErrorNotify(error.message);
     }
   };
-  const updateFirmsStock = async (path = "firms", id, updatedData) => {
+  const updateFirmsStock = async (path, id, updatedData) => {
     dispatch(fetchStart());
     try {
       await axiosToken.put(`/${path}/${id}`, updatedData);
-      getFirmsStock(path);
+      getAllListStock(path);
       toastSuccessNotify("Firm Succesfully updated.");
     } catch (error) {
       dispatch(fetchFail());
@@ -59,7 +58,7 @@ const useStockRequest = () => {
   };
 
   return {
-    getFirmsStock,
+    getAllListStock,
     deleteFirmsStock,
     updateFirmsStock,
     createFirmsStock,
