@@ -27,7 +27,7 @@ const useStockRequest = () => {
     dispatch(fetchStart());
     try {
       await axiosToken.delete(`/${path}/${id}`);
-      toastSuccessNotify("Firm Succesfully deleted.");
+      toastSuccessNotify("Succesfully deleted.");
       getAllListStock(path);
     } catch (error) {
       dispatch(fetchFail());

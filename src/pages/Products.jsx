@@ -1,9 +1,20 @@
-import React from 'react'
+import { useEffect } from "react";
+import ProductsTable from "../components/ProductsTable";
+import useStockRequest from "../services/useStockRequests";
 
 const Products = () => {
-  return (
-    <div>Products</div>
-  )
-}
+  const { getAllListStock } = useStockRequest();
+ 
 
-export default Products
+  useEffect(() => {
+    getAllListStock("products");
+  }, []);
+
+  return (
+    <div>
+      <ProductsTable  />
+    </div>
+  );
+};
+
+export default Products;
