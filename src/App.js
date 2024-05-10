@@ -2,7 +2,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import AppRouter from "./router/AppRouter";
 import { grey, blueGrey } from "@mui/material/colors";
 import { Provider } from "react-redux";
-import store from "./app/store";
+import store, { persistor } from "./app/store"
+import { PersistGate } from "redux-persist/integration/react"
 import { ToastContainer } from "react-toastify";
 import { Suspense } from "react";
 import Box from "@mui/material/Box";
@@ -38,7 +39,9 @@ function App() {
       <ThemeProvider theme={theme}>
         <Provider store={store}>
           <Suspense fallback={imageLoading}>
+          <PersistGate loading={null} persistor={persistor}>
             <AppRouter />
+          </PersistGate>
           </Suspense>
         </Provider>
         <ToastContainer />
