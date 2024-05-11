@@ -1,58 +1,94 @@
-import React from "react";
+import * as React from "react";
+import Box from "@mui/material/Box";
+import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import useStockRequests from "../services/useStockRequests";
 import { useSelector } from "react-redux";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import IconButton from "@mui/material/IconButton";
-import useStockRequest from "../services/useStockRequests";
-import ProductNewModal from "./ProductNewModal";
-export default function ProductsTable() {
-  const products = useSelector((state) => state.stock.products);
-  const { deleteFirmsStock } = useStockRequest();
-  if (!products || !Array.isArray(products)) {
-    return <div>No products found</div>;
-  }
 
+export default function ProductTable() {
+  const { deleteFirmsStock } = useStockRequests();
+  const { products } = useSelector((state) => state.stock);
 
-  const mappedProducts = products.map((item) => ({
-    id: item._id,
-    _id: item._id,
-    category_name: item.categoryId ? item.categoryId.name : "Unknown",
-    brand_name: item.brandId ? item.brandId.name : "Unknown",
-    name: item.name,
-    stock: item.quantity,
-    delete: (
-      <IconButton
-        size="small"
-        onClick={() => deleteFirmsStock("products",item._id)}
-      >
-        <DeleteForeverIcon
-          sx={{
-            "&:hover": { color: "red" },
-            transition: "color 0.4s ease",
-          }}
-        />
-      </IconButton>
-    )
-  }));
+  const getRowId = (row) => row._id;
+
+  const columns = [
+    { field: "_id", headerName: "#", minWidth: 150, flex: 1.4 },
+    {
+      field: "categoryId",
+      headerName: "Categories",
+      flex: 1,
+      minWidth: 100,
+      valueGetter: (value, row) => row.categoryId?.name,
+    },
+    {
+      field: "brandId",
+      headerName: "Brands",
+      headerAlign: "center",
+      align: "center",
+      width: 150,
+      flex: 1.2,
+      editable: true,
+      valueGetter: (value, row) => row.brandId?.name,
+    },
+    {
+      field: "name",
+      headerName: "Name",
+      headerAlign: "center",
+      align: "center",
+      flex: 1.1,
+      miWidth: 110,
+      editable: true,
+    },
+    {
+      field: "quantity",
+      headerName: "Stock",
+      sortable: true,
+      headerAlign: "center",
+      align: "center",
+      width: 160,
+    },
+    {
+      field: "actions",
+      type: "actions",
+      headerName: "Operations",
+      getActions: (props) => {
+        return [
+          <GridActionsCellItem
+            icon={
+              <DeleteForeverIcon
+                sx={{
+                  "&:hover": { color: "red" },
+                  transition: "color 0.4s ease",
+                }}
+              />
+            }
+            onClick={() => deleteFirmsStock("products", props.id)}
+            label="Delete"
+          />,
+        ];
+      },
+    },
+  ];
 
   return (
-    <div style={{ height: 500, width: "100%" }}>
-    <ProductNewModal/>
+    <Box sx={{ width: "100%" }}>
       <DataGrid
-        columns={[
-          { field: "_id", headerName: "ID", hideable: false },
-          { field: "category_name", headerName: "Category" },
-          { field: "brand_name", headerName: "Brand" },
-          { field: "name", headerName: "Name" },
-          { field: "stock", headerName: "Stock" },
-          { field: "delete", headerName: "Delete", renderCell: (params) => params.value }, // Render the delete button
-        ]}
-        rows={mappedProducts}
-        rowHeight={45}
-        slots={{
-          toolbar: GridToolbar,
+        autoHeight
+        rows={products}
+        columns={columns}
+        initialState={{
+          pagination: {
+            paginationModel: {
+              pageSize: 5,
+            },
+          },
         }}
+        pageSizeOptions={[5]}
+        checkboxSelection
+        disableRowSelectionOnClick
+        getRowId={getRowId}
+        slots={{ toolbar: GridToolbar }}
       />
-    </div>
+    </Box>
   );
 }

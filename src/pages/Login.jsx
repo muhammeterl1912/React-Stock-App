@@ -34,6 +34,9 @@ const Login = () => {
 
   return (
     <Container maxWidth="lg">
+
+    <p>mail:testApp@testing.com</p>
+    <p>password:Test123test@</p>
       <Grid
         container
         justifyContent="center"

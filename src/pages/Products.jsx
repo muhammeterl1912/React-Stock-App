@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import ProductsTable from "../components/ProductsTable";
 import useStockRequest from "../services/useStockRequests";
-
+import ProdouctNewModal from "../components/ProductNewModal"
 const Products = () => {
   const { getAllListStock } = useStockRequest();
  
@@ -12,6 +12,7 @@ const Products = () => {
 
   return (
     <div>
+    <ProdouctNewModal/>
       <ProductsTable  />
     </div>
   );
