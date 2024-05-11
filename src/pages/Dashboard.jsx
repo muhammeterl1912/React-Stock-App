@@ -13,15 +13,15 @@ import DrawerMenuList from "../components/DrawerMenuList";
 import useApiRequests from "../services/useApiRequests";
 import { useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 const drawerWidth = 200;
 
 function Dashboard(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
-
   const { user } = useSelector((state) => state.auth);
+  const navigate = useNavigate()
   const { logOut } = useApiRequests();
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -71,7 +71,7 @@ function Dashboard(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
+          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1,cursor:"pointer" }} onClick={()=>navigate("/stock")}>
             EROL STOCK APP
           </Typography>
           {user && (

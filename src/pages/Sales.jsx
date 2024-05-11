@@ -1,8 +1,22 @@
-import React from 'react'
+import SalesTable from "../components/SalesTable"
+import NewSalesModal from "../components/NewSalesModal";
+import useStockRequest from "../services/useStockRequests";
+import { useEffect } from "react";
 
 const Sales = () => {
+
+const {getAllListStock} = useStockRequest()
+
+  useEffect(() => {
+    getAllListStock("sales");
+  }, []);
   return (
-    <div>Sales</div>
+    <div>
+<NewSalesModal/>
+<SalesTable/>
+
+
+    </div>
   )
 }
 
