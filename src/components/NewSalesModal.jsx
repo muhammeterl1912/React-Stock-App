@@ -8,7 +8,9 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import useStockRequest from "../services/useStockRequests";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Height } from "@mui/icons-material";
 const style = {
   position: "absolute",
   top: "50%",
@@ -22,24 +24,24 @@ const style = {
 };
 const styleInput = {
   margin: 1,
+  height:"75%",
   width: "100%",
 };
-
 
 export default function NewSalesModal() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const brandsData = useSelector((item) => item.stock.brands);
+  const { brands, products } = useSelector((item) => item.stock);
   const [salesModal, setSalestModal] = React.useState({
     brandId: "",
     productId: "",
-    quantity: 0,
-    "price": 0,
-  })
+    quantity: "",
+    price: "",
+  });
 
-  const {createFirmsStock} = useStockRequest()
-console.log(brandsData)
+  const { createFirmsStock } = useStockRequest();
+
   const handleSelectChange = (e) => {
     setSalestModal((prevVal) => ({
       ...prevVal,
@@ -48,11 +50,11 @@ console.log(brandsData)
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     createFirmsStock("sales", salesModal);
     handleClose();
   };
-
+  const navigate = useNavigate();
   return (
     <div>
       <Button
@@ -68,7 +70,7 @@ console.log(brandsData)
           },
         }}
       >
-        NEW PRODUCT
+        NEW SALE
       </Button>
       <Modal
         open={open}
@@ -90,46 +92,63 @@ console.log(brandsData)
                 onChange={handleSelectChange}
                 sx={styleInput}
               >
-                <MenuItem value={"65343222b67e9681f937f123"}>ÜLKER</MenuItem>
-                <MenuItem value={"65343222b67e9681f937f202"}>APPLE</MenuItem>
-                <MenuItem value={"65343222b67e9681f937f201"}>Food</MenuItem>
-                <MenuItem value={"65343222b67e9681f937f204"}>Electronic</MenuItem>
+                <MenuItem
+                  sx={{ borderBottom: "1px solid black" }}
+                  onClick={() => navigate("/stock/brands/")}
+                >
+                  Add New Brand
+                </MenuItem>
+
+                {brands?.map((brand) => (
+                  <MenuItem value={brand._id} key={brand._id}>{brand.name}</MenuItem>
+                ))}
               </Select>
             </FormControl>
             <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label-2">Brand</InputLabel>
+              <InputLabel id="demo-simple-select-label-2">Product</InputLabel>
               <Select
                 labelId="demo-simple-select-label-2"
                 id="demo-simple-select-2"
-                value={salesModal.brandId}
+                value={salesModal.productId}
                 label="Brand"
-                name="brandId"
+                name="productId"
                 required
                 onChange={handleSelectChange}
                 sx={styleInput}
               >
-          {
-            brandsData?.map((brand) => (
-              <MenuItem value={brand._id}>{brand.name}</MenuItem>
-              
-            ))
-          }
+                <MenuItem
+                  sx={{ borderBottom: "1px solid black" }}
+                  onClick={() => navigate("/stock/products/")}
+                >
+                  Add New Products
+                </MenuItem>
+
+                {products?.map((brand) => (
+                  <MenuItem value={brand._id} key={brand._id}>{brand.name}</MenuItem>
+                ))}
               </Select>
             </FormControl>
             <TextField
-              label="Product Name"
+              label="Quantity"
               id="outlined-basic"
-              value={salesModal.name}
+              type="number"
+              value={salesModal.quantity}
               required
               onChange={handleSelectChange}
-              name="name"
+              name="quantity"
               sx={styleInput}
             />
-            <Button
-              type="submit"
-              variant="contained"
-              sx={styleInput} 
-            >
+                <TextField
+              label="Price"
+              id="outlined-basic"
+              type="number"
+              value={salesModal.price}
+              required
+              onChange={handleSelectChange}
+              name="price"
+              sx={styleInput}
+            />
+            <Button type="submit" variant="contained" sx={styleInput}>
               ADD PRODUCT
             </Button>
           </form>

@@ -9,7 +9,7 @@ export default function ProductTable() {
 
   const { deleteFirmsStock } = useStockRequests();
   const { sales } = useSelector((state) => state.stock);
-
+console.log(sales)
   const getRowId = (row) => row._id;
 
   const columns = [

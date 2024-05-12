@@ -111,7 +111,7 @@ const navigate = useNavigate()
 
                {
                 brandsData?.map((brand)=>(
-                  <MenuItem value={brand._id}>{brand.name}</MenuItem>
+                  <MenuItem value={brand._id} key={brand._id}>{brand.name}</MenuItem>
                 
                 ))
                }
