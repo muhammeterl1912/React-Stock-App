@@ -6,6 +6,7 @@ import useStockRequests from "../services/useStockRequests";
 import { useSelector } from "react-redux";
 
 export default function ProductTable() {
+
   const { deleteFirmsStock } = useStockRequests();
   const { sales } = useSelector((state) => state.stock);
 

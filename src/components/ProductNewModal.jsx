@@ -8,7 +8,8 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import useStockRequest from "../services/useStockRequests";
-
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const style = {
   position: "absolute",
   top: "50%",
@@ -36,7 +37,7 @@ export default function ProductNewModal() {
     brandId: "",
     name: "",
   });
-
+  const brandsData = useSelector((item) => item.stock.brands);
   const {createFirmsStock} = useStockRequest()
 
   const handleSelectChange = (e) => {
@@ -45,7 +46,7 @@ export default function ProductNewModal() {
       [e.target.name]: e.target.value,
     }));
   };
-
+const navigate = useNavigate()
   const handleSubmit = (e) => {
     e.preventDefault()
     createFirmsStock("products", productModal);
@@ -106,10 +107,14 @@ export default function ProductNewModal() {
                 required
                 onChange={handleSelectChange}
                 sx={styleInput}
-              >
-                <MenuItem value={"65343222b67e9681f937f107"}>PUMA</MenuItem>
-                <MenuItem value={"65343222b67e9681f937f123"}>ÜLKER</MenuItem>
-                <MenuItem value={"65343222b67e9681f937f131"}>APPLE</MenuItem>
+              >     <MenuItem sx={{ borderBottom: "1px solid black" }}onClick={()=>navigate("/stock/brands/")} >Add New Brand</MenuItem>
+
+               {
+                brandsData?.map((brand)=>(
+                  <MenuItem value={brand._id}>{brand.name}</MenuItem>
+                
+                ))
+               }
               </Select>
             </FormControl>
             <TextField

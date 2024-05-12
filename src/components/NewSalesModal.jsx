@@ -8,7 +8,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import useStockRequest from "../services/useStockRequests";
-
+import { useSelector } from "react-redux";
 const style = {
   position: "absolute",
   top: "50%",
@@ -30,17 +30,18 @@ export default function NewSalesModal() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-  const [productModal, setProductModal] = React.useState({
-    categoryId: "",
+  const brandsData = useSelector((item) => item.stock.brands);
+  const [salesModal, setSalestModal] = React.useState({
     brandId: "",
-    name: "",
-  });
+    productId: "",
+    quantity: 0,
+    "price": 0,
+  })
 
   const {createFirmsStock} = useStockRequest()
-
+console.log(brandsData)
   const handleSelectChange = (e) => {
-    setProductModal((prevVal) => ({
+    setSalestModal((prevVal) => ({
       ...prevVal,
       [e.target.name]: e.target.value,
     }));
@@ -48,7 +49,7 @@ export default function NewSalesModal() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    createFirmsStock("products", productModal);
+    createFirmsStock("sales", salesModal);
     handleClose();
   };
 
@@ -78,19 +79,19 @@ export default function NewSalesModal() {
         <Box sx={style}>
           <form onSubmit={handleSubmit}>
             <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label-1">Category</InputLabel>
+              <InputLabel id="demo-simple-select-label-1">Brand</InputLabel>
               <Select
                 labelId="demo-simple-select-label-1"
                 id="demo-simple-select-1"
-                value={productModal.categoryId}
-                label="Category"
-                name="categoryId"
+                value={salesModal.brandId}
+                label="Brand"
+                name="brandId"
                 required
                 onChange={handleSelectChange}
                 sx={styleInput}
               >
-                <MenuItem value={"65343222b67e9681f937f203"}>Jewelery</MenuItem>
-                <MenuItem value={"65343222b67e9681f937f202"}>Drink</MenuItem>
+                <MenuItem value={"65343222b67e9681f937f123"}>ÜLKER</MenuItem>
+                <MenuItem value={"65343222b67e9681f937f202"}>APPLE</MenuItem>
                 <MenuItem value={"65343222b67e9681f937f201"}>Food</MenuItem>
                 <MenuItem value={"65343222b67e9681f937f204"}>Electronic</MenuItem>
               </Select>
@@ -100,22 +101,25 @@ export default function NewSalesModal() {
               <Select
                 labelId="demo-simple-select-label-2"
                 id="demo-simple-select-2"
-                value={productModal.brandId}
+                value={salesModal.brandId}
                 label="Brand"
                 name="brandId"
                 required
                 onChange={handleSelectChange}
                 sx={styleInput}
               >
-                <MenuItem value={"65343222b67e9681f937f107"}>PUMA</MenuItem>
-                <MenuItem value={"65343222b67e9681f937f123"}>ÜLKER</MenuItem>
-                <MenuItem value={"65343222b67e9681f937f131"}>APPLE</MenuItem>
+          {
+            brandsData?.map((brand) => (
+              <MenuItem value={brand._id}>{brand.name}</MenuItem>
+              
+            ))
+          }
               </Select>
             </FormControl>
             <TextField
               label="Product Name"
               id="outlined-basic"
-              value={productModal.name}
+              value={salesModal.name}
               required
               onChange={handleSelectChange}
               name="name"
