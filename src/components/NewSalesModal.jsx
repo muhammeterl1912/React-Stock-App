@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
@@ -7,10 +7,10 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
-import useStockRequest from "../services/useStockRequests";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Height } from "@mui/icons-material";
+import useStockRequest from "../services/useStockRequests";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -22,18 +22,19 @@ const style = {
   boxShadow: 24,
   p: 5,
 };
+
 const styleInput = {
   margin: 1,
-  height:"75%",
+  height: "75%",
   width: "100%",
 };
 
 export default function NewSalesModal() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const { brands, products } = useSelector((item) => item.stock);
-  const [salesModal, setSalestModal] = React.useState({
+  const { brands, products } = useSelector((state) => state.stock);
+  const [salesModal, setSalesModal] = useState({
     brandId: "",
     productId: "",
     quantity: "",
@@ -43,7 +44,7 @@ export default function NewSalesModal() {
   const { createFirmsStock } = useStockRequest();
 
   const handleSelectChange = (e) => {
-    setSalestModal((prevVal) => ({
+    setSalesModal((prevVal) => ({
       ...prevVal,
       [e.target.name]: e.target.value,
     }));
@@ -54,7 +55,9 @@ export default function NewSalesModal() {
     createFirmsStock("sales", salesModal);
     handleClose();
   };
+
   const navigate = useNavigate();
+
   return (
     <div>
       <Button
@@ -100,7 +103,9 @@ export default function NewSalesModal() {
                 </MenuItem>
 
                 {brands?.map((brand) => (
-                  <MenuItem value={brand._id} key={brand._id}>{brand.name}</MenuItem>
+                  <MenuItem value={brand._id} key={brand._id}>
+                    {brand.name}
+                  </MenuItem>
                 ))}
               </Select>
             </FormControl>
@@ -110,7 +115,7 @@ export default function NewSalesModal() {
                 labelId="demo-simple-select-label-2"
                 id="demo-simple-select-2"
                 value={salesModal.productId}
-                label="Brand"
+                label="Product"
                 name="productId"
                 required
                 onChange={handleSelectChange}
@@ -123,8 +128,10 @@ export default function NewSalesModal() {
                   Add New Products
                 </MenuItem>
 
-                {products?.map((brand) => (
-                  <MenuItem value={brand._id} key={brand._id}>{brand.name}</MenuItem>
+                {products?.map((product) => (
+                  <MenuItem value={product._id} key={product._id}>
+                    {product.name}
+                  </MenuItem>
                 ))}
               </Select>
             </FormControl>
@@ -138,7 +145,7 @@ export default function NewSalesModal() {
               name="quantity"
               sx={styleInput}
             />
-                <TextField
+            <TextField
               label="Price"
               id="outlined-basic"
               type="number"

@@ -6,47 +6,54 @@ import useStockRequests from "../services/useStockRequests";
 import { useSelector } from "react-redux";
 
 export default function ProductTable() {
-
   const { deleteFirmsStock } = useStockRequests();
   const { sales } = useSelector((state) => state.stock);
-console.log(sales)
   const getRowId = (row) => row._id;
 
   const columns = [
-    { field: "_id", headerName: "#", minWidth: 150, flex: 1.4 },
     {
-      field: "categoryId",
-      headerName: "Categories",
+      field: "createdAd",
+      headerName: "Date",
       flex: 1,
       minWidth: 100,
-      valueGetter: (value, row) => row.categoryId?.name,
+      valueGetter: (value, row) => new Date(row.createdAt).toLocaleString(),
     },
+
     {
       field: "brandId",
-      headerName: "Brands",
+      headerName: "Brand",
+      flex: 1,
+      minWidth: 100,
+      valueGetter: (value, row) => row.brandId?.name,
+    },
+    {
+      field: "productId",
+      headerName: "Product",
       headerAlign: "center",
       align: "center",
       width: 150,
       flex: 1.2,
       editable: true,
-      valueGetter: (value, row) => row.brandId?.name,
+      valueGetter: (value, row) => row.productId?.name,
     },
     {
-      field: "name",
-      headerName: "Name",
+      field: "quantity",
+      headerName: "Quantity",
       headerAlign: "center",
       align: "center",
       flex: 1.1,
       miWidth: 110,
       editable: true,
+      valueGetter: (value, row) => row?.quantity,
     },
     {
-      field: "quantity",
-      headerName: "Stock",
+      field: "amount",
+      headerName: "Amount",
       sortable: true,
       headerAlign: "center",
       align: "center",
       width: 160,
+      valueGetter: (value, row) => row?.amount,
     },
     {
       field: "actions",
