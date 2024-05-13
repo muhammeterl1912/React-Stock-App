@@ -29,19 +29,26 @@ const styleInput = {
   width: "100%",
 };
 
-export default function NewSalesModal() {
-  const [open, setOpen] = useState(false);
+export default function NewSalesModal({
+  open,
+  setOpen,
+  salesModal,
+  setSalesModal,
+  modalId,
+}) {
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    setSalesModal({
+      brandId: "",
+      productId: "",
+      quantity: "",
+      price: "",
+    });
+  };
   const { brands, products } = useSelector((state) => state.stock);
-  const [salesModal, setSalesModal] = useState({
-    brandId: "",
-    productId: "",
-    quantity: "",
-    price: "",
-  });
 
-  const { createFirmsStock } = useStockRequest();
+  const { createFirmsStock, updateFirmsStock } = useStockRequest();
 
   const handleSelectChange = (e) => {
     setSalesModal((prevVal) => ({
@@ -52,7 +59,12 @@ export default function NewSalesModal() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createFirmsStock("sales", salesModal);
+    if (modalId) {
+      updateFirmsStock("sales", modalId, salesModal);
+    } else {
+      createFirmsStock("sales", salesModal);
+    }
+
     handleClose();
   };
 
