@@ -18,6 +18,9 @@ const Sales = () => {
 
   useEffect(() => {
     getAllListStock("sales");
+    getAllListStock("products")
+    getAllListStock("categories")
+    getAllListStock("brands")
   }, []);
   return (
     <div>

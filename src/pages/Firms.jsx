@@ -8,6 +8,7 @@ const Firms = () => {
   const [open, setOpen] = useState(false);
   const [selectedFirm, setSelectedFirm] = useState(null);
   useEffect(() => {
+  
     getAllListStock("firms");
   }, []);
 

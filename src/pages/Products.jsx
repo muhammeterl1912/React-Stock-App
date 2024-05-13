@@ -7,7 +7,10 @@ const Products = () => {
  
 
   useEffect(() => {
-    getAllListStock("products");
+    getAllListStock("products")
+    getAllListStock("categories")
+    getAllListStock("brands")
+
   }, []);
 
   return (
