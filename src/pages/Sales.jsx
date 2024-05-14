@@ -31,9 +31,7 @@ const Sales = () => {
   return (
     <div>
       {error && <ErrorMessage />}
-      {loading && <TableSkeleton />}
-      {!loading && !error && !sales.length && <NoDataMessage />}
-      {!error && !loading && (
+      {loading && <TableSkeleton />}      {!error && !loading && (
         <NewSalesModal
           open={open}
           setOpen={setOpen}
@@ -42,6 +40,8 @@ const Sales = () => {
           modalId={modalId}
         />
       )}
+      {!loading && !error && !sales.length && <NoDataMessage />}
+
       {!error && !loading && sales.length > 0 && (
         <Grid container gap={2} mt={3} justifyContent={"center"}>
           <SalesTable
