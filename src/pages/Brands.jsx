@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import NewBrandModal from "../components/NewBrandModal";
 import useStockRequest from "../services/useStockRequests";
 import { useSelector } from "react-redux";
@@ -8,7 +9,7 @@ import {
   ErrorMessage,
   NoDataMessage,
 } from "../components/DataFetchMessages";
-import { useState, useEffect } from "react";
+
 const Brands = () => {
   const [open, setOpen] = useState(false);
   const [selectedBrand, setSelectedBrand] = useState(null);
@@ -29,11 +30,7 @@ const Brands = () => {
           setSelectedBrand={setSelectedBrand}
         />
       )}
-      {loading && (
-        <CardSkeleton>
-          <BrandsAll />
-        </CardSkeleton>
-      )}
+      {loading && <CardSkeleton />}
       {error && <ErrorMessage />}
       {!loading && !error && !brands.length && <NoDataMessage />}
 

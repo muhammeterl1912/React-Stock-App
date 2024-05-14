@@ -33,11 +33,7 @@ const Firms = () => {
           />
         )}
       </Box>
-      {loading && (
-        <CardSkeleton>
-          <FirmsAll />
-        </CardSkeleton>
-      )}
+      {loading && <CardSkeleton />}
       {error && <ErrorMessage />}
       {!loading && !error && !firms.length && <NoDataMessage />}
 
