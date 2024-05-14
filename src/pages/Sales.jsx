@@ -13,14 +13,13 @@ const Sales = () => {
     price: "",
   });
 
-
   const { getAllListStock } = useStockRequest();
 
   useEffect(() => {
     getAllListStock("sales");
-    getAllListStock("products")
-    getAllListStock("categories")
-    getAllListStock("brands")
+    getAllListStock("products");
+    getAllListStock("categories");
+    getAllListStock("brands");
   }, []);
   return (
     <div>
@@ -31,7 +30,12 @@ const Sales = () => {
         salesModal={salesModal}
         modalId={modalId}
       />
-      <SalesTable setSalesModal={setSalesModal} setOpen={setOpen}  setModalId={setModalId} salesModal={salesModal} />
+      <SalesTable
+        setSalesModal={setSalesModal}
+        setOpen={setOpen}
+        setModalId={setModalId}
+        salesModal={salesModal}
+      />
     </div>
   );
 };

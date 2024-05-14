@@ -29,7 +29,7 @@ const styleInput = {
   width: "100%",
 };
 
-export default function NewSalesModal({
+export default function NewPurchaseModal({
   open,
   setOpen,
   salesModal,
@@ -40,13 +40,14 @@ export default function NewSalesModal({
   const handleClose = () => {
     setOpen(false);
     setSalesModal({
-      brandId: "",
-      productId: "",
-      quantity: "",
-      price: "",
-    });
+        firmId: "",
+        brandId: "",
+        productId: "",
+        quantity: "",
+        price: "",
+      });
   };
-  const { brands, products } = useSelector((state) => state.stock);
+  const { brands, products,firms } = useSelector((state) => state.stock);
 
   const { createFirmsStock, updateFirmsStock } = useStockRequest();
 
@@ -60,9 +61,9 @@ export default function NewSalesModal({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (modalId) {
-      updateFirmsStock("sales", modalId, salesModal);
+      updateFirmsStock("purchases", modalId, salesModal);
     } else {
-      createFirmsStock("sales", salesModal);
+      createFirmsStock("purchases", salesModal);
     }
 
     handleClose();
@@ -85,7 +86,7 @@ export default function NewSalesModal({
           },
         }}
       >
-        NEW SALE
+        NEW PURCHASE
       </Button>
       <Modal
         open={open}
@@ -95,6 +96,32 @@ export default function NewSalesModal({
       >
         <Box sx={style}>
           <form onSubmit={handleSubmit}>
+          <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label-1">Firm</InputLabel>
+              <Select
+                labelId="demo-simple-select-label-1"
+                id="demo-simple-select-1"
+                value={salesModal.firmId}
+                label="Firm"
+                name="firmId"
+                required
+                onChange={handleSelectChange}
+                sx={styleInput}
+              >
+                <MenuItem
+                  sx={{ borderBottom: "1px solid black" }}
+                  onClick={() => navigate("/stock/firms/")}
+                >
+                  Add New Firm
+                </MenuItem>
+
+                {firms?.map((firm) => (
+                  <MenuItem value={firm._id} key={firm._id}>
+                    {firm.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
             <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label-1">Brand</InputLabel>
               <Select
@@ -168,7 +195,7 @@ export default function NewSalesModal({
               sx={styleInput}
             />
             <Button type="submit" variant="contained" sx={styleInput}>
-              ADD NEW SALE
+              ADD NEW PURCHASE
             </Button>
           </form>
         </Box>

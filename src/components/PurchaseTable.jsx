@@ -7,11 +7,11 @@ import { useSelector } from "react-redux";
 import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
 
-export default function ProductTable({ setSalesModal, setOpen,  setModalId}) {
-  const { deleteFirmsStock,} = useStockRequests();
-  const { sales } = useSelector((state) => state.stock);
+export default function PurchaseTable({ setSalesModal, setOpen,  setModalId}) {
+  const { deleteFirmsStock} = useStockRequests();
+  const { purchases } = useSelector((state) => state.stock);
   const getRowId = (row) => row._id;
-
+console.log(purchases)
   const columns = [
     {
       field: "createdAt",
@@ -20,6 +20,13 @@ export default function ProductTable({ setSalesModal, setOpen,  setModalId}) {
       minWidth: 100,
       valueGetter: (value, row) => new Date(row.createdAt).toLocaleString(),
     },
+    {
+        field: "firmId",
+        headerName: "Firm",
+        flex: 1,
+        minWidth: 100,
+        valueGetter: (value, row) =>row.firmId?.name,
+      },
 
     {
       field: "brandId",
@@ -49,14 +56,14 @@ export default function ProductTable({ setSalesModal, setOpen,  setModalId}) {
       valueGetter: (value, row) => row?.quantity,
     },
     {
-      field: "price",
-      headerName: "Price",
-      sortable: true,
-      headerAlign: "center",
-      align: "center",
-      width: 160,
-      valueGetter: (value, row) => row?.price,
-    },
+        field: "price",
+        headerName: "Price",
+        sortable: true,
+        headerAlign: "center",
+        align: "center",
+        width: 160,
+        valueGetter: (value, row) => row?.price,
+      },
     {
       field: "amount",
       headerName: "Amount",
@@ -75,7 +82,7 @@ export default function ProductTable({ setSalesModal, setOpen,  setModalId}) {
           <IconButton
             size="small"
             onClick={() => {
-              setSalesModal({
+              setSalesModal({ firmId: props.row.firmId._id,
                 brandId: props.row.brandId._id,
                 productId: props.row.productId._id,
                 quantity: props.row.quantity,
@@ -101,7 +108,7 @@ export default function ProductTable({ setSalesModal, setOpen,  setModalId}) {
                 }}
               />
             }
-            onClick={() => deleteFirmsStock("sales", props.id)}
+            onClick={() => deleteFirmsStock("purchases", props.id)}
             label="Delete"
           />,
         ];
@@ -113,7 +120,7 @@ export default function ProductTable({ setSalesModal, setOpen,  setModalId}) {
     <Box sx={{ width: "100%" }}>
       <DataGrid
         autoHeight
-        rows={sales}
+        rows={purchases }
         columns={columns}
         initialState={{
           pagination: {
