@@ -27,7 +27,7 @@ const Products = () => {
       )}
          {!loading && !error && !products.length && <NoDataMessage />}
     
-      {!error && !loading && products.length > 0 && (
+      {!loading && products.length > 0 && (
         <Grid container gap={2} mt={3} justifyContent={"center"}>
         <ProductsTable  />
         </Grid>

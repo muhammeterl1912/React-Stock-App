@@ -18,7 +18,7 @@ const authSlice = createSlice({
       state.loading = false;
       state.user = payload.user.username;
       state.token = payload.token;
-      console.log( payload.token)
+   console.log(payload.token)
 
     
     },

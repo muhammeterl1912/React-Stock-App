@@ -34,7 +34,7 @@ const Brands = () => {
       {error && <ErrorMessage />}
       {!loading && !error && !brands.length && <NoDataMessage />}
 
-      {!error && !loading && brands.length > 0 && (
+      { !loading && brands.length > 0 && (
         <Grid container gap={2} mt={3} justifyContent={"center"}>
           <BrandsAll setOpen={setOpen} setSelectedBrand={setSelectedBrand} />
         </Grid>

@@ -32,27 +32,27 @@ const styleInput = {
 export default function NewPurchaseModal({
   open,
   setOpen,
-  salesModal,
-  setSalesModal,
+  purchaseModal,
+  setPurchaseModal,
   modalId,
 }) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
-    setSalesModal({
-        firmId: "",
-        brandId: "",
-        productId: "",
-        quantity: "",
-        price: "",
-      });
+    setPurchaseModal({
+      firmId: "",
+      brandId: "",
+      productId: "",
+      quantity: "",
+      price: "",
+    });
   };
-  const { brands, products,firms } = useSelector((state) => state.stock);
+  const { brands, products, firms } = useSelector((state) => state.stock);
 
   const { createFirmsStock, updateFirmsStock } = useStockRequest();
 
   const handleSelectChange = (e) => {
-    setSalesModal((prevVal) => ({
+    setPurchaseModal((prevVal) => ({
       ...prevVal,
       [e.target.name]: e.target.value,
     }));
@@ -61,9 +61,9 @@ export default function NewPurchaseModal({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (modalId) {
-      updateFirmsStock("purchases", modalId, salesModal);
+      updateFirmsStock("purchases", modalId, purchaseModal);
     } else {
-      createFirmsStock("purchases", salesModal);
+      createFirmsStock("purchases", purchaseModal);
     }
 
     handleClose();
@@ -96,12 +96,12 @@ export default function NewPurchaseModal({
       >
         <Box sx={style}>
           <form onSubmit={handleSubmit}>
-          <FormControl fullWidth>
+            <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label-1">Firm</InputLabel>
               <Select
                 labelId="demo-simple-select-label-1"
                 id="demo-simple-select-1"
-                value={salesModal.firmId}
+                value={purchaseModal.firmId}
                 label="Firm"
                 name="firmId"
                 required
@@ -127,7 +127,7 @@ export default function NewPurchaseModal({
               <Select
                 labelId="demo-simple-select-label-1"
                 id="demo-simple-select-1"
-                value={salesModal.brandId}
+                value={purchaseModal.brandId}
                 label="Brand"
                 name="brandId"
                 required
@@ -153,7 +153,7 @@ export default function NewPurchaseModal({
               <Select
                 labelId="demo-simple-select-label-2"
                 id="demo-simple-select-2"
-                value={salesModal.productId}
+                value={purchaseModal.productId}
                 label="Product"
                 name="productId"
                 required
@@ -178,7 +178,7 @@ export default function NewPurchaseModal({
               label="Quantity"
               id="outlined-basic"
               type="number"
-              value={salesModal.quantity}
+              value={purchaseModal.quantity}
               required
               onChange={handleSelectChange}
               name="quantity"
@@ -188,7 +188,7 @@ export default function NewPurchaseModal({
               label="Price"
               id="outlined-basic"
               type="number"
-              value={salesModal.price}
+              value={purchaseModal.price}
               required
               onChange={handleSelectChange}
               name="price"

@@ -7,11 +7,11 @@ import { useSelector } from "react-redux";
 import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
 
-export default function PurchaseTable({ setSalesModal, setOpen,  setModalId}) {
+export default function PurchaseTable({  setPurchaseModal, setOpen,  setModalId}) {
   const { deleteFirmsStock} = useStockRequests();
   const { purchases } = useSelector((state) => state.stock);
   const getRowId = (row) => row._id;
-console.log(purchases)
+
   const columns = [
     {
       field: "createdAt",
@@ -82,7 +82,7 @@ console.log(purchases)
           <IconButton
             size="small"
             onClick={() => {
-              setSalesModal({ firmId: props.row.firmId._id,
+               setPurchaseModal({ firmId: props.row.firmId._id,
                 brandId: props.row.brandId._id,
                 productId: props.row.productId._id,
                 quantity: props.row.quantity,

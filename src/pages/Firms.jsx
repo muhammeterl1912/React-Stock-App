@@ -37,7 +37,7 @@ const Firms = () => {
       {error && <ErrorMessage />}
       {!loading && !error && !firms.length && <NoDataMessage />}
 
-      {!error && !loading && firms.length > 0 && (
+      {  !loading && firms.length > 0 && (
         <Grid container gap={2} mt={3} justifyContent={"center"}>
           <FirmsAll setOpen={setOpen} setSelectedFirm={setSelectedFirm} />
         </Grid>
