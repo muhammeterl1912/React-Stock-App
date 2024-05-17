@@ -5,6 +5,7 @@ import {
   fetchFail,
   fetchStart,
   getStockSuccess,
+  getProdPurcBranFirmSuccess,
 } from "../features/stockSlice";
 
 const useStockRequest = () => {
@@ -16,14 +17,14 @@ const useStockRequest = () => {
     try {
       const { data } = await axiosToken(`/${path}`);
       const stockData = data.data;
-      dispatch(getStockSuccess({ stockData, path}));
+      dispatch(getStockSuccess({ stockData, path }));
     } catch (error) {
       dispatch(fetchFail());
       toastErrorNotify(error.message);
     }
   };
 
-  const deleteFirmsStock = async (path , id) => {
+  const deleteFirmsStock = async (path, id) => {
     dispatch(fetchStart());
     try {
       await axiosToken.delete(`/${path}/${id}`);
@@ -40,6 +41,28 @@ const useStockRequest = () => {
       await axiosToken.post(`/${path}`, createNewStock);
       getAllListStock(path);
       toastSuccessNotify("Firm Succesfully created.");
+    } catch (error) {
+      dispatch(fetchFail());
+      toastErrorNotify(error.message);
+    }
+  };
+  const getProdPurcBranFirmStock = async () => {
+    dispatch(fetchStart());
+    try {
+      const [prod, purc, bran, firm] = await Promise.all([
+        axiosToken("/products"),
+        axiosToken("/purchases"),
+        axiosToken("/brands"),
+        axiosToken("/firms"),
+      ]);
+      const products = prod?.data?.data;
+      const purchases = purc?.data?.data;
+      const brands = bran?.data?.data;
+      const firms = firm?.data?.data;
+
+      dispatch(
+        getProdPurcBranFirmSuccess({ products, purchases, brands, firms })
+      );
     } catch (error) {
       dispatch(fetchFail());
       toastErrorNotify(error.message);
@@ -62,6 +85,7 @@ const useStockRequest = () => {
     deleteFirmsStock,
     updateFirmsStock,
     createFirmsStock,
+    getProdPurcBranFirmStock,
   };
 };
 

@@ -18,12 +18,13 @@ const Purchases = () => {
     quantity: "",
     price: "",
   });
-  const { getAllListStock } = useStockRequest();
+  const { getProdPurcBranFirmStock } = useStockRequest();
   useEffect(() => {
-    getAllListStock("purchases");
-    getAllListStock("firms");
-    getAllListStock("products");
-    getAllListStock("brands");
+    // getAllListStock("purchases");
+    // getAllListStock("firms");
+    // getAllListStock("products");
+    // getAllListStock("brands");
+    getProdPurcBranFirmStock()
   }, []);
   const { purchases, loading, error } = useSelector((state) => state.stock);
   return (
