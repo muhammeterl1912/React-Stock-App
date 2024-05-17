@@ -4,6 +4,8 @@ This project is one of the biggest projects I have done. Stock-Check App is a po
 
 ## Demo
 
+![222222](https://github.com/muhammeterl1912/React-StockCheck-App/assets/118777871/a18c4dc1-caf7-49f3-a92a-4f2245bf3670)
+
 Click 👉 [here](https://react-stock-dbsdu712q-muhammets-projects-aea412db.vercel.app/) to see the live demo of the app.
 
 ## Features
