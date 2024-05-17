@@ -2,6 +2,11 @@
 
 Stock-Check App is a powerful and user-friendly React application designed for administrative use. It allows admins to manage stock information, including purchasing, firms, brands, and sales. The app provides functionalities to create, read, update, and delete (CRUD) various stock-related data while also offering insightful charts and visualizations.
 
+## Demo
+
+Click 👉 [here](https://react-stock-dbsdu712q-muhammets-projects-aea412db.vercel.app/) to see the live demo of the app.
+
+
 ## Features
 
 👉 **Admin Dashboard**: Visualize stock data with dynamic charts.
@@ -38,9 +43,6 @@ Stock-Check App is a powerful and user-friendly React application designed for a
 
 🧑🏻‍💻 **Tremor Charts**: Provide dynamic and interactive charting solutions.
 
-## Demo
-
-Click 👉 [here](https://react-stock-dbsdu712q-muhammets-projects-aea412db.vercel.app/) to see the live demo of the app.
 
 ## How to Use
 
