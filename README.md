@@ -1,11 +1,10 @@
 # React Stock-Check App
 
-Stock-Check App is a powerful and user-friendly React application designed for administrative use. It allows admins to manage stock information, including purchasing, firms, brands, and sales. The app provides functionalities to create, read, update, and delete (CRUD) various stock-related data while also offering insightful charts and visualizations.
+This project is one of the biggest projects I have done. Stock-Check App is a powerful and user-friendly React application designed for administrative use. It allows admins to manage stock information, including purchasing, firms, brands, and sales. The app provides functionalities to create, read, update, and delete (CRUD) various stock-related data while also offering insightful charts and visualizations.
 
 ## Demo
 
 Click 👉 [here](https://react-stock-dbsdu712q-muhammets-projects-aea412db.vercel.app/) to see the live demo of the app.
-
 
 ## Features
 
@@ -43,7 +42,6 @@ Click 👉 [here](https://react-stock-dbsdu712q-muhammets-projects-aea412db.verc
 
 🧑🏻‍💻 **Tremor Charts**: Provide dynamic and interactive charting solutions.
 
-
 ## How to Use
 
 ### Admin Dashboard
@@ -74,9 +72,9 @@ The app uses an Axios instance to make HTTP requests to a RESTful API. The base 
 
 ## Installation
 
-### Using npm
+### Using yarn
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-username/Stock-Check-App.git
-   cd Stock-Check-App
+   git clone https://github.com/muhammeterl1912/React-StockCheck-App
+   cd React-StockCheck-App
